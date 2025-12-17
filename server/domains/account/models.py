@@ -22,11 +22,7 @@ class Account(auth_models.AbstractBaseUser, auth_models.PermissionsMixin):
     objects = managers.AccountManager()
 
     USERNAME_FIELD = "email"
-    REQUIRED_FIELDS = (
-        "first_name",
-        "last_name",
-        "birth_date",
-    )
+    REQUIRED_FIELDS = ("role",)
 
 
 class Profile(TimestampMixin):
