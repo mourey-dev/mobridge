@@ -5,7 +5,6 @@ class AccountManager(BaseUserManager):
     def create_user(
         self,
         email,
-        role,
         password,
         **extra_fields,
     ):
@@ -14,7 +13,6 @@ class AccountManager(BaseUserManager):
         email = self.normalize_email(email)
         account = self.model(
             email=email,
-            role=role,
             **extra_fields,
         )
         account.set_password(password)
@@ -24,11 +22,10 @@ class AccountManager(BaseUserManager):
     def create_superuser(
         self,
         email,
-        role,
         password,
         **extra_fields,
     ):
         extra_fields.setdefault("is_staff", True)
         extra_fields.setdefault("is_superuser", True)
 
-        return self.create_user(email, role, password, **extra_fields)
+        return self.create_user(email, password, **extra_fields)

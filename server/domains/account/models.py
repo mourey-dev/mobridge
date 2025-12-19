@@ -12,17 +12,16 @@ class Account(auth_models.AbstractBaseUser, auth_models.PermissionsMixin):
         APPLICANT = 1, "Applicant"
         EMPLOYER = 2, "Employer"
 
-    username = models.CharField(max_length=25, unique=True, blank=True)
     email = models.EmailField(max_length=255, unique=True)
     is_staff = models.BooleanField(default=False)
     is_superuser = models.BooleanField(default=False)
-    role = models.IntegerField(choices=Role.choices)
+    role = models.IntegerField(choices=Role.choices, null=True, blank=True)
+    verified = models.BooleanField(default=False)
 
     # Manager
     objects = managers.AccountManager()
 
     USERNAME_FIELD = "email"
-    REQUIRED_FIELDS = ("role",)
 
 
 class Profile(TimestampMixin):
