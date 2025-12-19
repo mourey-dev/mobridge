@@ -36,10 +36,15 @@ export const getErrorMessage = (error: unknown): string => {
       return message;
     }
 
+    // Handle validation if contains non-field errors
+    if (errorObj["non_field_errors"]) {
+      return errorObj["non_field_errors"] as Array<string>[0];
+    }
+
     // Handle Validation Arrays
     // Check if 'errors' exists and is an array
-    if (Array.isArray(errorObj.errors)) {
-      const firstError = errorObj.errors[0];
+    if (Array.isArray(errorObj)) {
+      const firstError = errorObj[0];
       if (typeof firstError === "string") {
         return firstError;
       }
